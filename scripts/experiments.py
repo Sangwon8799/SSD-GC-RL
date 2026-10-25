@@ -121,9 +121,11 @@ DIRECT = {
 
 
 def e2a():
+    """One training seed per workload (a diagnostic of the first design, not a main result); hc80-20 gets
+    a second seed because the discount-factor comparison (e3a) uses it."""
     out = []
     for seed in (0, 1):
-        for wl in WORKLOADS:
+        for wl in (WORKLOADS if seed == 0 else ("hc80-20",)):
             for name, extra in DIRECT.items():
                 out.append({"id": f"d2-{name}-g0.999-{wl}-s{seed}",
                             "args": extra + ["--continuing", "1", "--gamma", "0.999", "--workload", wl,

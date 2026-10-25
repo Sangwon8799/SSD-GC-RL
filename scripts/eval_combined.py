@@ -35,7 +35,7 @@ def victim(name, i):
     cfg = json.load(open(os.path.join(d, "config.json")))
     ag = build(cfg)
     ag.load_state_dict(torch.load(os.path.join(d, "best.pt"), weights_only=False))
-    return RuleAgentPolicy(ag, cfg["M"], acts=cfg["acts"], drop=cfg["drop"])
+    return RuleAgentPolicy(ag, cfg["M"], stochastic=bool(cfg["eval_stochastic"]), acts=cfg["acts"], drop=cfg["drop"])
 
 
 def timing(name, i):

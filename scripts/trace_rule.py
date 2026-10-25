@@ -29,7 +29,7 @@ def main():
     cfg = json.load(open(os.path.join(d, "config.json")))
     ag = build(cfg)
     ag.load_state_dict(torch.load(os.path.join(d, "best.pt"), weights_only=False))
-    pol = RuleAgentPolicy(ag, cfg["M"], acts=cfg["acts"], drop=cfg["drop"])
+    pol = RuleAgentPolicy(ag, cfg["M"], stochastic=bool(cfg["eval_stochastic"]), acts=cfg["acts"], drop=cfg["drop"])
     f = FTL(256, 64, cfg["op"])
     per_gc = []
 

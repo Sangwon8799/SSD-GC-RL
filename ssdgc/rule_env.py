@@ -210,3 +210,22 @@ class AlternateBeta:
         beta = self.cycle[(self.k // self.M) % len(self.cycle)]
         self.k += 1
         return beta_victim(f, beta)
+
+
+class MixBeta:
+    """Control: draw beta every M GCs at random with given probabilities (no state, no order).
+    With the trained agent's own choice frequencies it tells whether the agent's *timing* matters
+    beyond *how often* it uses each rule."""
+
+    def __init__(self, probs, M=64, seed=0):
+        p = np.asarray(probs, dtype=float)
+        self.p = p / p.sum()
+        self.M, self.k = M, 0
+        self.rng = np.random.default_rng(seed)
+        self.beta = BETAS[2]
+
+    def __call__(self, f):
+        if self.k % self.M == 0:
+            self.beta = BETAS[int(self.rng.choice(len(BETAS), p=self.p))]
+        self.k += 1
+        return beta_victim(f, self.beta)

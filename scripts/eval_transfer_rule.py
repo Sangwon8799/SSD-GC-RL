@@ -4,7 +4,7 @@ The agents trained on the pool of five workloads (r2-<algo>-pool-s*) and the sin
 (r2-<algo>-hc90-10-s*) are evaluated (selected checkpoint, test seeds 100-104) on
   * workloads never used for training: zipf0.8, hc95-5
   * hc90-10 at other OP: 7 %, 28 %
-together with the fixed rules and the random rule switch on the same cases.  -> results/transfer/transfer_rule.csv
+together with the fixed rules, the random rule switch and the fixed alternations on the same cases.  -> results/transfer/transfer_rule.csv
 """
 from __future__ import annotations
 
@@ -19,7 +19,7 @@ sys.path.insert(0, HERE)
 import torch  # noqa: E402
 
 from ssdgc.env import run_policy  # noqa: E402
-from ssdgc.rule_env import BETAS, FixedBeta, RandomBeta, RuleAgentPolicy  # noqa: E402
+from ssdgc.rule_env import BETAS, AlternateBeta, FixedBeta, RandomBeta, RuleAgentPolicy  # noqa: E402
 from train_rule import build  # noqa: E402
 
 CASES = [("zipf0.8", 0.14), ("hc95-5", 0.14), ("hc90-10", 0.07), ("hc90-10", 0.28)]
@@ -55,17 +55,22 @@ def main():
                     runs.append((os.path.basename(d), f"{algo}:{kind}", d))
     for wl, op in CASES:
         for seed in SEEDS:
-            for name in [f"beta{b:g}" for b in BETAS] + ["random-beta"]:
+            for name in [f"beta{b:g}" for b in BETAS] + ["random-beta", "alt0-1", "alt0-2"]:
                 if (name, wl, str(op), str(seed)) in done:
                     continue
-                pol = RandomBeta(64, seed) if name == "random-beta" else FixedBeta(float(name[4:]))
+                if name == "random-beta":
+                    pol = RandomBeta(64, seed)
+                elif name.startswith("alt"):
+                    pol = AlternateBeta(tuple(float(x) for x in name[3:].split("-")), 64)
+                else:
+                    pol = FixedBeta(float(name[4:]))
                 w.writerow([name, "-", wl, op, seed, round(run_policy(pol, wl, seed, op=op)["waf"], 5)])
                 fh.flush()
             for rid, kind, d in runs:
                 if (rid, wl, str(op), str(seed)) in done:
                     continue
                 cfg, ag = load(d)
-                pol = RuleAgentPolicy(ag, cfg["M"], acts=cfg["acts"], drop=cfg["drop"])
+                pol = RuleAgentPolicy(ag, cfg["M"], stochastic=bool(cfg["eval_stochastic"]), acts=cfg["acts"], drop=cfg["drop"])
                 w.writerow([rid, kind, wl, op, seed, round(run_policy(pol, wl, seed, op=op)["waf"], 5)])
                 fh.flush()
         print(wl, op, "done", flush=True)
