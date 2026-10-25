@@ -30,8 +30,9 @@ from ssdgc.policies import make_policy
 def build_agent(cfg):
     common = dict(gamma=cfg["gamma"], lr=cfg["lr"], hidden=cfg["hidden"], seed=cfg["seed"],
                   reward_shift=cfg["reward_shift"])
-    if cfg["algo"] in ("dqn", "ddqn"):
-        return DQNAgent(cfg["k"], N_CAND_FEAT, N_GLOB_FEAT, double=(cfg["algo"] == "ddqn"),
+    if cfg["algo"] in ("dqn", "ddqn", "dueling"):
+        return DQNAgent(cfg["k"], N_CAND_FEAT, N_GLOB_FEAT, double=(cfg["algo"] in ("ddqn", "dueling")),
+                        dueling=(cfg["algo"] == "dueling"), nstep=cfg.get("nstep", 1),
                         batch=cfg["batch"], train_every=cfg["train_every"], target_every=cfg["target_every"],
                         learn_start=cfg["learn_start"], eps_decay_steps=int(cfg["eps_frac"] * cfg["decisions"]),
                         eps_end=cfg["eps_end"], buffer=cfg["buffer"], **common)
@@ -53,7 +54,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--exp-id", required=True)
     ap.add_argument("--runs", default="runs")
-    ap.add_argument("--algo", default="dqn", choices=["dqn", "ddqn", "reinforce"])
+    ap.add_argument("--algo", default="dqn", choices=["dqn", "ddqn", "dueling", "reinforce"])
     ap.add_argument("--workload", default="hc90-10")
     ap.add_argument("--pool", default="", help="comma list: train on a random workload per episode")
     ap.add_argument("--op", type=float, default=0.14)
@@ -75,6 +76,7 @@ def main():
     ap.add_argument("--eps-frac", type=float, default=0.3)
     ap.add_argument("--eps-end", type=float, default=0.02)
     ap.add_argument("--entropy", type=float, default=0.01)
+    ap.add_argument("--nstep", type=int, default=1)
     ap.add_argument("--eval-every", type=int, default=25, help="episodes between quick evaluations")
     ap.add_argument("--ckpt-every", type=int, default=10)
     ap.add_argument("--final-eval-seeds", default="100,101,102,103,104")
@@ -91,7 +93,7 @@ def main():
                lr_v=a.lr_v, hidden=a.hidden, k=a.k, n_greedy=(a.k // 2 if a.n_greedy < 0 else a.n_greedy),
                drop=[d for d in a.drop.split(",") if d], batch=a.batch, train_every=a.train_every,
                target_every=a.target_every, learn_start=a.learn_start, buffer=a.buffer, eps_frac=a.eps_frac,
-               eps_end=a.eps_end, entropy=a.entropy)
+               eps_end=a.eps_end, entropy=a.entropy, nstep=a.nstep)
     # reward centring: subtract the mean victim valid-ratio of greedy on this workload (a constant —
     # it does not change the optimal policy, it only keeps Q values small)
     probe = VictimEnv(a.workload if not cfg["pool"] else cfg["pool"][0], op=a.op, seed=10_000 + a.seed)
@@ -143,7 +145,10 @@ def main():
         while True:
             act = agent.act(obs)
             obs2, r, term, trunc, _ = env.step(act)
-            agent.observe(obs, act, r, obs2, term)
+            if hasattr(agent, "nstep"):
+                agent.observe(obs, act, r, obs2, term, truncated=trunc)
+            else:
+                agent.observe(obs, act, r, obs2, term)
             ret += r
             obs = obs2
             if term or trunc:
