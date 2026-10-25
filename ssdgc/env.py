@@ -242,3 +242,18 @@ def run_policy(policy_fn, workload: str, seed: int, n_blocks=256, ppb=64, op=0.1
     return dict(waf=1.0 + (c1["copies"] - c0["copies"]) / n,
                 gc=c1["gc"] - c0["gc"], copies=c1["copies"] - c0["copies"], host=n,
                 erase_mean=float(de.mean()), erase_std=float(de.std()), erase_max=int(de.max()))
+
+
+class CandidateRandom:
+    """Baseline: pick uniformly among the k candidates the agents see (no learning at all).
+
+    It separates what the candidate set alone buys from what the learned scorer adds."""
+
+    def __init__(self, k: int = 8, n_greedy: int = 4, seed: int = 0):
+        self.k, self.n_greedy = k, n_greedy
+        self.rng = np.random.default_rng(seed)
+        self.name = f"cand-random(k={k})"
+
+    def __call__(self, ftl: FTL) -> int:
+        blocks = candidate_set(ftl, self.k, self.n_greedy)[0]
+        return int(blocks[self.rng.integers(len(blocks))])

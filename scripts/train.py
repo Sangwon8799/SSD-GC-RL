@@ -110,13 +110,20 @@ def main():
                     seed=a.seed, workload_pool=cfg["pool"] or None, drop=cfg["drop"])
     start_ep = 0
     wall0 = 0.0
+    best_val, best_ep = float("inf"), 0
     ck = os.path.join(run_dir, "checkpoint.pt")
+    best_path = os.path.join(run_dir, "best.pt")
     if os.path.exists(ck):
         sd = torch.load(ck, weights_only=False)
         agent.load_state_dict(sd["agent"])
         start_ep, wall0 = sd["episode"], sd["wall"]
         env.rng = np.random.default_rng(sd["env_seed"])
+        best_val, best_ep = sd.get("best_val", float("inf")), sd.get("best_ep", 0)
         print(f"{a.exp_id}: resume at episode {start_ep}")
+    # validation = workloads x seeds that are never used for training (9000+, 9500+) nor for the
+    # final test (100-104); the checkpoint with the best validation WAF is kept (early stopping)
+    val_wls = cfg["pool"] or [a.workload]
+    val_seeds = [9_000 + a.seed] if cfg["pool"] else [9_000 + a.seed, 9_500 + a.seed]
     def trim(path, upto):
         if not os.path.exists(path):
             return
@@ -160,14 +167,18 @@ def main():
                      round(eps, 4), round(agent.last_loss, 6), round(time.time() - t0, 1)])
         tlog.flush()
         if (ep + 1) % a.eval_every == 0 or ep + 1 == n_episodes:
-            wl = a.workload if not cfg["pool"] else cfg["pool"][(ep // a.eval_every) % len(cfg["pool"])]
-            w = evaluate(agent, cfg, wl, [9_000 + a.seed], warm=2.0, meas=2.0)
-            ew.writerow([ep + 1, agent.steps, round(w[0], 5), round(time.time() - t0, 1)])
+            w = [x for wl in val_wls for x in evaluate(agent, cfg, wl, val_seeds, warm=2.0, meas=2.0)]
+            val = float(np.mean(w))
+            ew.writerow([ep + 1, agent.steps, round(val, 5), round(time.time() - t0, 1)])
             elog.flush()
+            if val < best_val:
+                best_val, best_ep = val, ep + 1
+                torch.save(agent.state_dict(), best_path + ".tmp")
+                os.replace(best_path + ".tmp", best_path)
         if (ep + 1) % a.ckpt_every == 0:
             tmp = ck + ".tmp"
             torch.save({"agent": agent.state_dict(), "episode": ep + 1, "wall": time.time() - t0,
-                        "env_seed": int(env.rng.integers(1 << 31))}, tmp)
+                        "env_seed": int(env.rng.integers(1 << 31)), "best_val": best_val, "best_ep": best_ep}, tmp)
             os.replace(tmp, ck)
     train_wall = time.time() - t0
     torch.save(agent.state_dict(), os.path.join(run_dir, "model.pt"))
@@ -177,12 +188,19 @@ def main():
     wls = cfg["pool"] or [a.workload]
     for wl in wls:
         final[wl] = evaluate(agent, cfg, wl, seeds)
+    best = {}
+    if os.path.exists(best_path):
+        agent.load_state_dict(torch.load(best_path, weights_only=False))
+        for wl in wls:
+            best[wl] = evaluate(agent, cfg, wl, seeds)
     done = dict(exp_id=a.exp_id, train_wall_s=round(train_wall, 1), decisions=agent.steps, final_waf=final,
+                best_waf=best, best_val=round(best_val, 5), best_ep=best_ep, val_seeds=val_seeds,
                 eval_seeds=seeds)
     json.dump(done, open(os.path.join(run_dir, "done.json"), "w"), indent=2)
     if os.path.exists(ck):
         os.remove(ck)
-    print(f"{a.exp_id}: done in {train_wall:.0f}s  final={ {k: round(float(np.mean(v)), 4) for k, v in final.items()} }")
+    print(f"{a.exp_id}: done in {train_wall:.0f}s  final={ {k: round(float(np.mean(v)), 4) for k, v in final.items()} }"
+          f"  best={ {k: round(float(np.mean(v)), 4) for k, v in best.items()} } (ep {best_ep})")
 
 
 if __name__ == "__main__":

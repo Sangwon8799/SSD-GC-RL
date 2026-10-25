@@ -18,7 +18,7 @@ ALGOS = {  # name -> extra args
     "dueling": ["--algo", "dueling"] + DQN_COMMON,
     "reinforce": ["--algo", "reinforce", "--lr", "3e-4"],
 }
-MAIN_DECISIONS = 200_000
+MAIN_DECISIONS = 150_000
 
 
 def job(i, args):
@@ -36,23 +36,26 @@ def e2(nstep=1):
     return out
 
 
-def e3(main="reinforce"):
+def e3(main="reinforce", grid=None, seeds=(0, 1, 2)):
+    """Hyper-parameter comparison on hc90-10: one knob changed at a time from the main setting."""
     base = ALGOS[main]
     out = []
-    grid = [("gamma", "0"), ("gamma", "0.9"), ("gamma", "0.999"),
-            ("lr", "1e-4"), ("lr", "1e-3"), ("k", "4"), ("k", "16")]
-    for seed in (0, 1, 2):
+    grid = grid or [("gamma", "0"), ("gamma", "0.9"), ("gamma", "0.999"),
+                    ("lr", "1e-4"), ("lr", "1e-3"), ("k", "4"), ("k", "16")]
+    for seed in seeds:
         for key, val in grid:
-            args = [a for a in base]
+            args = list(base)
             if key == "lr":
-                args = [a for a in args]
                 j = args.index("--lr")
                 args[j + 1] = val
             else:
                 args += [f"--{key}", val]
-            out.append(job(f"e3-{main}-{key}{val}-hc90-10-s{seed}",
+            out.append(job(f"e3-{main}-{key.replace('-', '')}{val}-hc90-10-s{seed}",
                            args + ["--workload", "hc90-10", "--seed", seed, "--decisions", MAIN_DECISIONS]))
     return out
+
+
+E3_DDQN = [("gamma", "0.9"), ("gamma", "0.999"), ("lr", "3e-5"), ("lr", "3e-4"), ("target-every", "2000")]
 
 
 def e4(main="reinforce"):
@@ -83,12 +86,22 @@ def e7_victim(main="reinforce"):
             for seed in SEEDS]
 
 
+def ordered():
+    """One queue, most important first: if time runs out, what is finished is still a result."""
+    e2_all = e2()
+    core = [j for j in e2_all if "-reinforce-" in j["id"] or "-ddqn-" in j["id"]]
+    rest = [j for j in e2_all if j not in core]
+    return core + e4() + e3() + e5() + e3("ddqn", E3_DDQN) + rest + e7_victim()
+
+
 def main():
     os.makedirs("queues", exist_ok=True)
-    qs = {"e2": e2(), "e3": e3(), "e4": e4(), "e5": e5(), "e7v": e7_victim()}
-    for k, v in qs.items():
-        json.dump(v, open(f"queues/{k}.json", "w"), indent=1)
-        print(k, len(v))
+    q = ordered()
+    ids = [j["id"] for j in q]
+    assert len(ids) == len(set(ids)), "duplicate job ids"
+    json.dump(q, open("queues/main.json", "w"), indent=1)
+    from collections import Counter
+    print(len(q), dict(Counter(i.split("-")[0] for i in ids)))
 
 
 if __name__ == "__main__":
