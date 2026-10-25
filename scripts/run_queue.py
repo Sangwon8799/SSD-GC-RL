@@ -67,6 +67,8 @@ def main():
     ap.add_argument("--parallel", type=int, default=2)
     ap.add_argument("--max-load", type=float, default=8.0)
     ap.add_argument("--runs", default="runs")
+    ap.add_argument("--ignore-build", action="store_true",
+                    help="start jobs even while a site build runs (only when the orchestrator allows it)")
     ap.add_argument("--parallel-file", default="", help="if this file exists, its integer overrides --parallel "
                                                          "(re-read every 10 s, so the width can change while running)")
     a = ap.parse_args()
@@ -100,7 +102,7 @@ def main():
                 pass
         while pending and len(running) < width:
             load = os.getloadavg()[0]
-            if load >= a.max_load or site_build_running():
+            if load >= a.max_load or (not a.ignore_build and site_build_running()):
                 break
             if len(running) + len(adopted) >= width:
                 break

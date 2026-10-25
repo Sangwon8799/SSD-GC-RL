@@ -109,12 +109,15 @@ def e6():
     return out
 
 
+REST_WORKLOADS = ("hc90-10", "zipf1.0")   # DQN and Dueling DQN only here (wall-clock; see the page's log 05:35)
+
+
 def ordered():
     """One queue, most important first: if time runs out, what is finished is still a result."""
     e2_all = e2()
     core = [j for j in e2_all if "-reinforce-" in j["id"] or "-ddqn-" in j["id"]]
-    rest = [j for j in e2_all if j not in core]
-    return core + e4() + e3() + e5() + e3("ddqn", E3_DDQN) + rest + e7_victim()
+    rest = [j for j in e2_all if j not in core and any(f"-{w}-s" in j["id"] for w in REST_WORKLOADS)]
+    return core + e4() + e3() + e5() + e7_victim() + e3("ddqn", E3_DDQN) + rest
 
 
 def main():

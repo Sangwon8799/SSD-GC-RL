@@ -1617,6 +1617,101 @@
   ]
  },
  {
+  "id": "e7-reinforce-hc80-20-op28-s0",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--lr",
+   "3e-4",
+   "--workload",
+   "hc80-20",
+   "--op",
+   "0.28",
+   "--seed",
+   "0",
+   "--decisions",
+   "150000",
+   "--eval-every",
+   "10"
+  ]
+ },
+ {
+  "id": "e7-reinforce-hc80-20-op28-s1",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--lr",
+   "3e-4",
+   "--workload",
+   "hc80-20",
+   "--op",
+   "0.28",
+   "--seed",
+   "1",
+   "--decisions",
+   "150000",
+   "--eval-every",
+   "10"
+  ]
+ },
+ {
+  "id": "e7-reinforce-hc80-20-op28-s2",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--lr",
+   "3e-4",
+   "--workload",
+   "hc80-20",
+   "--op",
+   "0.28",
+   "--seed",
+   "2",
+   "--decisions",
+   "150000",
+   "--eval-every",
+   "10"
+  ]
+ },
+ {
+  "id": "e7-reinforce-hc80-20-op28-s3",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--lr",
+   "3e-4",
+   "--workload",
+   "hc80-20",
+   "--op",
+   "0.28",
+   "--seed",
+   "3",
+   "--decisions",
+   "150000",
+   "--eval-every",
+   "10"
+  ]
+ },
+ {
+  "id": "e7-reinforce-hc80-20-op28-s4",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--lr",
+   "3e-4",
+   "--workload",
+   "hc80-20",
+   "--op",
+   "0.28",
+   "--seed",
+   "4",
+   "--decisions",
+   "150000",
+   "--eval-every",
+   "10"
+  ]
+ },
+ {
   "id": "e3-ddqn-gamma0.9-hc90-10-s0",
   "args": [
    "--algo",
@@ -1890,74 +1985,6 @@
   ]
  },
  {
-  "id": "e2-dqn-uniform-s0",
-  "args": [
-   "--algo",
-   "dqn",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "uniform",
-   "--seed",
-   "0",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dueling-uniform-s0",
-  "args": [
-   "--algo",
-   "dueling",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "uniform",
-   "--seed",
-   "0",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dqn-hc80-20-s0",
-  "args": [
-   "--algo",
-   "dqn",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "hc80-20",
-   "--seed",
-   "0",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dueling-hc80-20-s0",
-  "args": [
-   "--algo",
-   "dueling",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "hc80-20",
-   "--seed",
-   "0",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
   "id": "e2-dqn-hc90-10-s0",
   "args": [
    "--algo",
@@ -2019,108 +2046,6 @@
    "zipf1.0",
    "--seed",
    "0",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dqn-shift90-10-s0",
-  "args": [
-   "--algo",
-   "dqn",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "shift90-10",
-   "--seed",
-   "0",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dueling-shift90-10-s0",
-  "args": [
-   "--algo",
-   "dueling",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "shift90-10",
-   "--seed",
-   "0",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dqn-uniform-s1",
-  "args": [
-   "--algo",
-   "dqn",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "uniform",
-   "--seed",
-   "1",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dueling-uniform-s1",
-  "args": [
-   "--algo",
-   "dueling",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "uniform",
-   "--seed",
-   "1",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dqn-hc80-20-s1",
-  "args": [
-   "--algo",
-   "dqn",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "hc80-20",
-   "--seed",
-   "1",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dueling-hc80-20-s1",
-  "args": [
-   "--algo",
-   "dueling",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "hc80-20",
-   "--seed",
-   "1",
    "--decisions",
    "150000",
    "--eval-every",
@@ -2196,108 +2121,6 @@
   ]
  },
  {
-  "id": "e2-dqn-shift90-10-s1",
-  "args": [
-   "--algo",
-   "dqn",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "shift90-10",
-   "--seed",
-   "1",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dueling-shift90-10-s1",
-  "args": [
-   "--algo",
-   "dueling",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "shift90-10",
-   "--seed",
-   "1",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dqn-uniform-s2",
-  "args": [
-   "--algo",
-   "dqn",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "uniform",
-   "--seed",
-   "2",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dueling-uniform-s2",
-  "args": [
-   "--algo",
-   "dueling",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "uniform",
-   "--seed",
-   "2",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dqn-hc80-20-s2",
-  "args": [
-   "--algo",
-   "dqn",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "hc80-20",
-   "--seed",
-   "2",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dueling-hc80-20-s2",
-  "args": [
-   "--algo",
-   "dueling",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "hc80-20",
-   "--seed",
-   "2",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
   "id": "e2-dqn-hc90-10-s2",
   "args": [
    "--algo",
@@ -2359,108 +2182,6 @@
    "zipf1.0",
    "--seed",
    "2",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dqn-shift90-10-s2",
-  "args": [
-   "--algo",
-   "dqn",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "shift90-10",
-   "--seed",
-   "2",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dueling-shift90-10-s2",
-  "args": [
-   "--algo",
-   "dueling",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "shift90-10",
-   "--seed",
-   "2",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dqn-uniform-s3",
-  "args": [
-   "--algo",
-   "dqn",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "uniform",
-   "--seed",
-   "3",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dueling-uniform-s3",
-  "args": [
-   "--algo",
-   "dueling",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "uniform",
-   "--seed",
-   "3",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dqn-hc80-20-s3",
-  "args": [
-   "--algo",
-   "dqn",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "hc80-20",
-   "--seed",
-   "3",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dueling-hc80-20-s3",
-  "args": [
-   "--algo",
-   "dueling",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "hc80-20",
-   "--seed",
-   "3",
    "--decisions",
    "150000",
    "--eval-every",
@@ -2536,108 +2257,6 @@
   ]
  },
  {
-  "id": "e2-dqn-shift90-10-s3",
-  "args": [
-   "--algo",
-   "dqn",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "shift90-10",
-   "--seed",
-   "3",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dueling-shift90-10-s3",
-  "args": [
-   "--algo",
-   "dueling",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "shift90-10",
-   "--seed",
-   "3",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dqn-uniform-s4",
-  "args": [
-   "--algo",
-   "dqn",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "uniform",
-   "--seed",
-   "4",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dueling-uniform-s4",
-  "args": [
-   "--algo",
-   "dueling",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "uniform",
-   "--seed",
-   "4",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dqn-hc80-20-s4",
-  "args": [
-   "--algo",
-   "dqn",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "hc80-20",
-   "--seed",
-   "4",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dueling-hc80-20-s4",
-  "args": [
-   "--algo",
-   "dueling",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "hc80-20",
-   "--seed",
-   "4",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
   "id": "e2-dqn-hc90-10-s4",
   "args": [
    "--algo",
@@ -2697,135 +2316,6 @@
    "1e-4",
    "--workload",
    "zipf1.0",
-   "--seed",
-   "4",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dqn-shift90-10-s4",
-  "args": [
-   "--algo",
-   "dqn",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "shift90-10",
-   "--seed",
-   "4",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e2-dueling-shift90-10-s4",
-  "args": [
-   "--algo",
-   "dueling",
-   "--lr",
-   "1e-4",
-   "--workload",
-   "shift90-10",
-   "--seed",
-   "4",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e7-reinforce-hc80-20-op28-s0",
-  "args": [
-   "--algo",
-   "reinforce",
-   "--lr",
-   "3e-4",
-   "--workload",
-   "hc80-20",
-   "--op",
-   "0.28",
-   "--seed",
-   "0",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e7-reinforce-hc80-20-op28-s1",
-  "args": [
-   "--algo",
-   "reinforce",
-   "--lr",
-   "3e-4",
-   "--workload",
-   "hc80-20",
-   "--op",
-   "0.28",
-   "--seed",
-   "1",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e7-reinforce-hc80-20-op28-s2",
-  "args": [
-   "--algo",
-   "reinforce",
-   "--lr",
-   "3e-4",
-   "--workload",
-   "hc80-20",
-   "--op",
-   "0.28",
-   "--seed",
-   "2",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e7-reinforce-hc80-20-op28-s3",
-  "args": [
-   "--algo",
-   "reinforce",
-   "--lr",
-   "3e-4",
-   "--workload",
-   "hc80-20",
-   "--op",
-   "0.28",
-   "--seed",
-   "3",
-   "--decisions",
-   "150000",
-   "--eval-every",
-   "10"
-  ]
- },
- {
-  "id": "e7-reinforce-hc80-20-op28-s4",
-  "args": [
-   "--algo",
-   "reinforce",
-   "--lr",
-   "3e-4",
-   "--workload",
-   "hc80-20",
-   "--op",
-   "0.28",
    "--seed",
    "4",
    "--decisions",
