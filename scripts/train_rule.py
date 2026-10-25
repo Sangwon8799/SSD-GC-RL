@@ -130,10 +130,15 @@ def main():
                 best_val, best_ep = val, ep
                 torch.save(agent.state_dict(), best_path)
     wall = time.time() - t0
+    trained_steps = agent.steps
     torch.save(agent.state_dict(), os.path.join(run_dir, "model.pt"))
     seeds = [int(x) for x in a.final_eval_seeds.split(",")]
     wls = pool or [a.workload]
     final = {wl: evaluate(agent, cfg, wl, seeds) for wl in wls}
+    other = {}
+    if a.algo == "reinforce":                       # the other way of acting, for the record
+        cfg2 = dict(cfg, eval_stochastic=0 if cfg["eval_stochastic"] else 1)
+        other = {wl: evaluate(agent, cfg2, wl, seeds) for wl in wls}
     agent.load_state_dict(torch.load(best_path, weights_only=False))
     choices = {}
     best = {}
@@ -141,9 +146,11 @@ def main():
         rec = []
         best[wl] = evaluate(agent, cfg, wl, seeds, record=rec)
         choices[wl] = [round(float(x), 4) for x in np.mean(rec, axis=0)]
-    done = dict(exp_id=a.exp_id, train_wall_s=round(wall, 1), decisions=agent.steps * a.M, final_waf=final, best_waf=best,
+    done = dict(exp_id=a.exp_id, train_wall_s=round(wall, 1), decisions=trained_steps * a.M, best_decisions=agent.steps * a.M,
+                final_waf=final, best_waf=best,
                 best_val=round(best_val, 5), best_ep=best_ep, val_seeds=val_seeds, eval_seeds=seeds,
-                choices_best=choices, betas=list(BETAS))
+                choices_best=choices, betas=list(BETAS), final_waf_other_mode=other,
+                eval_mode="stochastic" if cfg["eval_stochastic"] else "argmax")
     json.dump(done, open(os.path.join(run_dir, "done.json"), "w"), indent=2)
     print(f"{a.exp_id}: done in {wall:.0f}s  final={ {k: round(float(np.mean(v)), 4) for k, v in final.items()} }"
           f"  best={ {k: round(float(np.mean(v)), 4) for k, v in best.items()} } (ep {best_ep})  choices={choices}")

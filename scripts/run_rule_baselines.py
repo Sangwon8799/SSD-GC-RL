@@ -12,7 +12,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 from ssdgc.env import run_policy  # noqa: E402
-from ssdgc.rule_env import BETAS, FixedBeta, RandomBeta  # noqa: E402
+from ssdgc.rule_env import BETAS, AlternateBeta, FixedBeta, RandomBeta  # noqa: E402
 
 OUT = "results/baselines/rule.csv"
 
@@ -33,10 +33,15 @@ def main():
         w.writerow(["policy", "workload", "op", "seed", "waf"])
     for wl in a.workloads.split(","):
         for seed in (100, 101, 102, 103, 104):
-            for name in [f"beta{b:g}" for b in BETAS] + ["random-beta"]:
+            for name in [f"beta{b:g}" for b in BETAS] + ["random-beta", "alt0-1", "alt0-2"]:
                 if (name, wl, str(a.op), str(seed)) in done:
                     continue
-                pol = RandomBeta(64, seed) if name == "random-beta" else FixedBeta(float(name[4:]))
+                if name == "random-beta":
+                    pol = RandomBeta(64, seed)
+                elif name.startswith("alt"):
+                    pol = AlternateBeta(tuple(float(x) for x in name[3:].split("-")), 64)
+                else:
+                    pol = FixedBeta(float(name[4:]))
                 r = run_policy(pol, wl, seed, op=a.op)
                 w.writerow([name, wl, a.op, seed, round(r["waf"], 5)])
                 fh.flush()

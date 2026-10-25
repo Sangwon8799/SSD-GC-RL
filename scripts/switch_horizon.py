@@ -20,7 +20,7 @@ from ssdgc.policies import make_policy  # noqa: E402
 from ssdgc.workloads import make_workload  # noqa: E402
 
 
-def trace(wl_name, first, second, seed=100, warm=4.0, after_decisions=12000, op=0.14):
+def trace(wl_name, first, second, seed=100, warm=4.0, after_decisions=4000, op=0.14):
     f = FTL(256, 64, op)
     rng = np.random.default_rng(seed)
     us = []
@@ -48,19 +48,19 @@ def main():
     out = []
     for a, b in (("greedy", "cb"), ("cb", "greedy")):
         u = np.mean([trace(wl, a, b, seed=s) for s in (100, 101, 102)], axis=0)
-        w = 200
+        w = 50
         ma = np.convolve(u, np.ones(w) / w, mode="valid")
-        final = ma[-2000:].mean()
+        final = ma[-1000:].mean()
         start = ma[:50].mean()
         # decisions until 90 % of the way from start to final
         target = start + 0.9 * (final - start)
         hit = np.argmax((ma - target) * np.sign(final - start) >= 0) + w
         print(f"{wl} {a}->{b}: u {start:.3f} -> {final:.3f}, 90% reached after ~{hit} decisions")
-        for i in range(0, len(ma), 50):
+        for i in range(0, len(ma), 25):
             out.append([f"{a}->{b}", i + w, round(float(ma[i]), 5)])
     with open(f"results/analysis/switch_{wl}.csv", "w", newline="") as fh:
         wr = csv.writer(fh)
-        wr.writerow(["switch", "decision", "u_ma200"])
+        wr.writerow(["switch", "decision", "u_ma50"])
         wr.writerows(out)
 
 

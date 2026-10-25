@@ -84,6 +84,7 @@ def main():
             print(f"[queue] {time.strftime('%H:%M:%S')} +{len(added)} jobs from {a.queue}", flush=True)
         alive = live_ids()
         adopted &= alive
+        adopted |= {i for i in alive if i in seen and i not in {j["id"] for j, _ in running}}   # started by an earlier runner
         if not (pending or running or adopted):
             break
         for j, p in list(running):

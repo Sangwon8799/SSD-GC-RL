@@ -155,11 +155,12 @@ def e2b():
     out = []
     for seed in SEEDS:
         for algo in ("dqn", "reinforce"):
+            ev = ["--eval-stochastic", "1"] if algo == "reinforce" else []   # a policy-gradient agent's policy is the distribution
             for wl in WORKLOADS:
                 out.append(rjob(f"r2-{algo}-{wl}-s{seed}", ["--algo", algo, "--workload", wl, "--seed", seed,
-                                                            "--decisions", RULE_DECISIONS]))
+                                                            "--decisions", RULE_DECISIONS] + ev))
             out.append(rjob(f"r2-{algo}-pool-s{seed}", ["--algo", algo, "--workload", WORKLOADS[0], "--pool", POOL,
-                                                       "--seed", seed, "--decisions", RULE_DECISIONS]))
+                                                       "--seed", seed, "--decisions", RULE_DECISIONS] + ev))
     return out
 
 
@@ -181,6 +182,7 @@ def e4b():
                                                               "prev_a2", "prev_a3"])]),
                             ("noudist", ["--drop", "mean_u,std_u,full_frac"]),
                             ("noinval", ["--drop", "young_inval_share"]),
+                            ("prevonly", ["--drop", "mean_u,std_u,full_frac,gc_block_frac,victim_u_last,waf_last,young_inval_share"]),
                             ("two-rules", ["--acts", "0,2"])):
             out.append(rjob(f"r4-dqn-{name}-pool-s{seed}", ["--algo", "dqn", "--workload", WORKLOADS[0], "--pool", POOL,
                                                            "--seed", seed, "--decisions", RULE_DECISIONS] + extra))

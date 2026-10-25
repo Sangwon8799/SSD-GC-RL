@@ -187,6 +187,7 @@ def main():
                         "env_seed": int(env.rng.integers(1 << 31)), "best_val": best_val, "best_ep": best_ep}, tmp)
             os.replace(tmp, ck)
     train_wall = time.time() - t0
+    trained_steps = agent.steps
     torch.save(agent.state_dict(), os.path.join(run_dir, "model.pt"))
     # final evaluation: frozen greedy policy, full protocol, evaluation seeds (never used in training)
     seeds = [int(s) for s in a.final_eval_seeds.split(",")]
@@ -203,7 +204,7 @@ def main():
         agent.load_state_dict(torch.load(best_path, weights_only=False))
         for wl in wls:
             best[wl] = evaluate(agent, cfg, wl, seeds)
-    done = dict(exp_id=a.exp_id, train_wall_s=round(train_wall, 1), decisions=agent.steps, final_waf=final,
+    done = dict(exp_id=a.exp_id, train_wall_s=round(train_wall, 1), decisions=trained_steps, best_decisions=agent.steps, final_waf=final,
                 best_waf=best, best_val=round(best_val, 5), best_ep=best_ep, val_seeds=val_seeds,
                 final_waf_other_mode=other, eval_mode="stochastic" if cfg.get("eval_stochastic") else "argmax",
                 eval_seeds=seeds)

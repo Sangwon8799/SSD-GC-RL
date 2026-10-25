@@ -197,3 +197,16 @@ class RandomBeta:
             self.beta = BETAS[int(self.rng.integers(len(BETAS)))]
         self.k += 1
         return beta_victim(f, self.beta)
+
+
+class AlternateBeta:
+    """Baseline: a fixed cycle of rules, each used for M GCs (e.g. beta 0, 1, 0, 1, ...) — no learning, no state."""
+
+    def __init__(self, cycle=(0.0, 1.0), M=64):
+        self.cycle, self.M, self.k = tuple(cycle), M, 0
+        self.name = "alt" + "-".join(f"{b:g}" for b in cycle)
+
+    def __call__(self, f):
+        beta = self.cycle[(self.k // self.M) % len(self.cycle)]
+        self.k += 1
+        return beta_victim(f, beta)
