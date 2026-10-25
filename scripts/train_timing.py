@@ -27,6 +27,9 @@ def main():
     ap.add_argument("--runs", default="runs")
     ap.add_argument("--algo", default="tabq", choices=["tabq", "dqn"])
     ap.add_argument("--lam", type=float, default=1.0)
+    ap.add_argument("--reward-scale", type=float, default=0.01,
+                    help="multiplies the reward; the tabular agent is invariant to it (Q starts at 0), the DQN is not: "
+                         "its network has to reach |Q| ~ |r| / (1 - gamma) with a bounded step size")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--steps", type=int, default=400_000)
     ap.add_argument("--episode-len", type=int, default=20_000)
@@ -50,7 +53,8 @@ def main():
     json.dump(cfg, open(os.path.join(d, "config.json"), "w"), indent=2)
     kw = dict(gamma=a.gamma, eps_decay_steps=int(a.eps_frac * a.steps), seed=a.seed)
     agent = TabularQ(alpha=a.alpha, **kw) if a.algo == "tabq" else TimingDQN(lr=a.lr, train_every=a.train_every, **kw)
-    env = TimingEnv(workload=a.workload, op=a.op, seed=a.seed, lam=a.lam, episode_len=a.episode_len)
+    env = TimingEnv(workload=a.workload, op=a.op, seed=a.seed, lam=a.lam, episode_len=a.episode_len,
+                    reward_scale=a.reward_scale)
     log = open(os.path.join(d, "train_log.csv"), "w", newline="")
     w = csv.writer(log)
     w.writerow(["episode", "steps", "ep_return", "lat_mean_ms", "lat_p99_ms", "waf", "epsilon", "wall_s"])

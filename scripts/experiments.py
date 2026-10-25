@@ -105,7 +105,7 @@ def e6():
         for seed in SEEDS:
             out.append({"id": f"e6-dqn-lam{lam}-s{seed}", "script": "train_timing.py",
                         "args": ["--algo", "dqn", "--lam", lam, "--gamma", "0.9995", "--seed", str(seed),
-                                 "--steps", "1000000", "--train-every", "8"]})
+                                 "--steps", "1000000", "--train-every", "8", "--reward-scale", "1e-5"]})
     return out
 
 
