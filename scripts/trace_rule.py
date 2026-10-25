@@ -31,7 +31,14 @@ def main():
     ag.load_state_dict(torch.load(os.path.join(d, "best.pt"), weights_only=False))
     pol = RuleAgentPolicy(ag, cfg["M"], acts=cfg["acts"], drop=cfg["drop"])
     f = FTL(256, 64, cfg["op"])
-    f.victim_fn = pol
+    per_gc = []
+
+    def wrapped(ftl):
+        v = pol(ftl)
+        per_gc.append((pol.beta, ftl.valid[v] / ftl.P, int(ftl.origin[v] == GCW), ftl.now - ftl.close_time[v]))
+        return v
+
+    f.victim_fn = wrapped
     wl = make_workload(cfg["workload"] if not cfg["pool"] else "hc90-10", f.U, 100)
     for lpn in range(f.U):
         f.write(lpn)
@@ -54,6 +61,15 @@ def main():
         w = csv.writer(fh)
         w.writerow(["step", "beta", "victim_u", "closed_mean_u", "gc_block_frac"])
         w.writerows(rows)
+    g = np.array(per_gc[len(per_gc) // 2:], dtype=float)          # second half: steady state under the agent
+    with open(out.replace("trace_", "pergc_"), "w", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["beta", "n_gc", "mean_victim_u", "gc_block_share", "median_age"])
+        for beta in BETAS:
+            m = g[:, 0] == beta
+            if m.any():
+                w.writerow([beta, int(m.sum()), round(float(g[m, 1].mean()), 4), round(float(g[m, 2].mean()), 4),
+                            round(float(np.median(g[m, 3])), 1)])
     b = np.array([r[1] for r in rows])
     print(out, {float(x): int((b == x).sum()) for x in BETAS}, "first 30:", " ".join(f"{x:g}" for x in b[:30]))
 
