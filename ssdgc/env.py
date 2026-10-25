@@ -74,8 +74,9 @@ class ObsBuilder:
     1 + (pages copied by the previous GC) / (host writes since the previous decision).
     """
 
-    def __init__(self, k: int = 8, n_greedy: int = 4):
+    def __init__(self, k: int = 8, n_greedy: int = 4, drop=()):
         self.k, self.n_greedy = k, n_greedy
+        self.drop = [CAND_NAMES.index(d) for d in drop]
         self.reset(None)
 
     def reset(self, ftl):
@@ -110,6 +111,8 @@ class ObsBuilder:
         cand[:n, 6] = np.minimum(gr, k * 2) / (k * 2)
         cand[:n, 7] = np.minimum(cr, k * 2) / (k * 2)
         mask[:n] = 1.0
+        if self.drop:
+            cand[:, self.drop] = 0.0
         closed = f.state == CLOSED
         nc = max(int(closed.sum()), 1)
         glob = np.array([
@@ -124,7 +127,7 @@ class ObsBuilder:
 class VictimEnv:
     def __init__(self, workload: str = "hc80-20", n_blocks: int = 256, ppb: int = 64, op: float = 0.14,
                  k: int = 8, n_greedy: int = 4, episode_len: int = 2000, warmup_writes: float = 2.0,
-                 warmup_policy: str = "greedy", seed: int = 0, workload_pool=None):
+                 warmup_policy: str = "greedy", seed: int = 0, workload_pool=None, drop=()):
         self.workload_spec = workload
         self.workload_pool = list(workload_pool) if workload_pool else None
         self.B, self.P, self.op = n_blocks, ppb, op
@@ -135,7 +138,7 @@ class VictimEnv:
         self.rng = np.random.default_rng(seed)
         self.ftl = FTL(n_blocks, ppb, op)
         self.U = self.ftl.U
-        self.obs_builder = ObsBuilder(k, n_greedy)
+        self.obs_builder = ObsBuilder(k, n_greedy, drop)
 
     def _advance(self):
         """Replay host writes until the FTL needs a victim."""
@@ -200,9 +203,9 @@ class VictimEnv:
 class AgentPolicy:
     """Wraps a trained agent as an FTL victim policy (for full evaluation runs)."""
 
-    def __init__(self, agent, k: int = 8, n_greedy: int = 4):
+    def __init__(self, agent, k: int = 8, n_greedy: int = 4, drop=()):
         self.agent = agent
-        self.ob = ObsBuilder(k, n_greedy)
+        self.ob = ObsBuilder(k, n_greedy, drop)
         self.name = getattr(agent, "name", "agent")
         self._started = False
 
