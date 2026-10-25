@@ -30,7 +30,7 @@ HOST, GCW = 0, 1
 
 class FTL:
     def __init__(self, n_blocks: int = 256, ppb: int = 64, op: float = 0.07,
-                 gc_threshold: int = 2, separate_gc_frontier: bool = True):
+                 gc_threshold: int = 2, separate_gc_frontier: bool = True, user_pages: int | None = None):
         if gc_threshold < 2:
             raise ValueError("gc_threshold must be >= 2 (one free block is reserved for the GC frontier)")
         self.B = int(n_blocks)
@@ -39,7 +39,7 @@ class FTL:
         self.gc_threshold = int(gc_threshold)
         self.separate = bool(separate_gc_frontier)
         self.T = self.B * self.P
-        self.U = int(self.T / (1.0 + self.op))
+        self.U = int(user_pages) if user_pages is not None else int(self.T / (1.0 + self.op))
         # The free pool may not be eaten by user data: at most (B - threshold - open blocks) blocks hold data.
         open_blocks = 2 if self.separate else 1
         if self.U > (self.B - self.gc_threshold - open_blocks) * self.P:
@@ -151,7 +151,7 @@ class FTL:
             victim = int(self.victim_fn(self))
         if self.state[victim] != CLOSED:
             raise ValueError(f"victim {victim} is not a closed block")
-        if self.valid[victim] >= self.P:
+        if self.valid[victim] >= self.P and not getattr(self.victim_fn, "allow_full", False):
             raise ValueError(f"victim {victim} has no invalid page")
         P = self.P
         base = victim * P

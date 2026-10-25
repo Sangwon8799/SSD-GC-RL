@@ -1,0 +1,6 @@
+ok test_layout_and_sequential_fill
+ok test_overwrite_invalidates_old_page
+ok test_greedy_gc_by_hand
+ok test_cost_benefit_prefers_old_cold_block
+ok test_random_long_run_invariants
+ALL 5 TESTS PASSED

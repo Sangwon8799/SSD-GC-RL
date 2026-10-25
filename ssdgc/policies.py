@@ -64,6 +64,19 @@ class RandomVictim:
         return int(cand[self.rng.integers(len(cand))])
 
 
+class PureRandom:
+    """Uniform over *all* closed blocks, even fully valid ones (theory check only — wasteful)."""
+    name = "pure-random"
+    allow_full = True
+
+    def __init__(self, rng: np.random.Generator):
+        self.rng = rng
+
+    def __call__(self, ftl: FTL) -> int:
+        cand = np.flatnonzero(ftl.state == CLOSED)
+        return int(cand[self.rng.integers(len(cand))])
+
+
 class DChoices:
     """Sample d eligible blocks uniformly, take the one with fewest valid pages (Van Houdt 2013)."""
 
@@ -88,6 +101,8 @@ def make_policy(name: str, rng: np.random.Generator):
         return FIFO()
     if name == "random":
         return RandomVictim(rng)
+    if name == "pure-random":
+        return PureRandom(rng)
     if name.startswith("d"):
         return DChoices(int(name[1:]), rng)
     raise KeyError(name)
