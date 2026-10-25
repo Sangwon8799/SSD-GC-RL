@@ -1,0 +1,1440 @@
+[
+ {
+  "id": "r2-dqn-uniform-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-hc80-20-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "hc80-20",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-hc90-10-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "hc90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-zipf1.0-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "zipf1.0",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-shift90-10-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "shift90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-pool-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-uniform-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "uniform",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-hc80-20-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "hc80-20",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-hc90-10-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "hc90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-zipf1.0-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "zipf1.0",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-shift90-10-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "shift90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-pool-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-uniform-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-hc80-20-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "hc80-20",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-hc90-10-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "hc90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-zipf1.0-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "zipf1.0",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-shift90-10-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "shift90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-pool-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-uniform-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "uniform",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-hc80-20-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "hc80-20",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-hc90-10-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "hc90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-zipf1.0-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "zipf1.0",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-shift90-10-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "shift90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-pool-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-uniform-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-hc80-20-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "hc80-20",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-hc90-10-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "hc90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-zipf1.0-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "zipf1.0",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-shift90-10-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "shift90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-pool-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-uniform-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "uniform",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-hc80-20-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "hc80-20",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-hc90-10-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "hc90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-zipf1.0-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "zipf1.0",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-shift90-10-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "shift90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-pool-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-uniform-s3",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--seed",
+   "3",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-hc80-20-s3",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "hc80-20",
+   "--seed",
+   "3",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-hc90-10-s3",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "hc90-10",
+   "--seed",
+   "3",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-zipf1.0-s3",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "zipf1.0",
+   "--seed",
+   "3",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-shift90-10-s3",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "shift90-10",
+   "--seed",
+   "3",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-pool-s3",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "3",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-uniform-s3",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "uniform",
+   "--seed",
+   "3",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-hc80-20-s3",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "hc80-20",
+   "--seed",
+   "3",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-hc90-10-s3",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "hc90-10",
+   "--seed",
+   "3",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-zipf1.0-s3",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "zipf1.0",
+   "--seed",
+   "3",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-shift90-10-s3",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "shift90-10",
+   "--seed",
+   "3",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-pool-s3",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "3",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-uniform-s4",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--seed",
+   "4",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-hc80-20-s4",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "hc80-20",
+   "--seed",
+   "4",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-hc90-10-s4",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "hc90-10",
+   "--seed",
+   "4",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-zipf1.0-s4",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "zipf1.0",
+   "--seed",
+   "4",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-shift90-10-s4",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "shift90-10",
+   "--seed",
+   "4",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-dqn-pool-s4",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "4",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-uniform-s4",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "uniform",
+   "--seed",
+   "4",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-hc80-20-s4",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "hc80-20",
+   "--seed",
+   "4",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-hc90-10-s4",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "hc90-10",
+   "--seed",
+   "4",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-zipf1.0-s4",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "zipf1.0",
+   "--seed",
+   "4",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-shift90-10-s4",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "shift90-10",
+   "--seed",
+   "4",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r2-reinforce-pool-s4",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "reinforce",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "4",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r7-dqn-hc80-20-op28-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "hc80-20",
+   "--op",
+   "0.28",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r7-dqn-hc80-20-op28-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "hc80-20",
+   "--op",
+   "0.28",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r7-dqn-hc80-20-op28-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "hc80-20",
+   "--op",
+   "0.28",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r7-dqn-hc80-20-op28-s3",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "hc80-20",
+   "--op",
+   "0.28",
+   "--seed",
+   "3",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r7-dqn-hc80-20-op28-s4",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "hc80-20",
+   "--op",
+   "0.28",
+   "--seed",
+   "4",
+   "--decisions",
+   "400000"
+  ]
+ },
+ {
+  "id": "r4-dqn-nostate-pool-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000",
+   "--drop",
+   "mean_u,std_u,full_frac,gc_block_frac,victim_u_last,waf_last,young_inval_share,prev_a0,prev_a1,prev_a2,prev_a3"
+  ]
+ },
+ {
+  "id": "r4-dqn-noudist-pool-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000",
+   "--drop",
+   "mean_u,std_u,full_frac"
+  ]
+ },
+ {
+  "id": "r4-dqn-noinval-pool-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000",
+   "--drop",
+   "young_inval_share"
+  ]
+ },
+ {
+  "id": "r4-dqn-two-rules-pool-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000",
+   "--acts",
+   "0,2"
+  ]
+ },
+ {
+  "id": "r4-dqn-nostate-pool-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000",
+   "--drop",
+   "mean_u,std_u,full_frac,gc_block_frac,victim_u_last,waf_last,young_inval_share,prev_a0,prev_a1,prev_a2,prev_a3"
+  ]
+ },
+ {
+  "id": "r4-dqn-noudist-pool-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000",
+   "--drop",
+   "mean_u,std_u,full_frac"
+  ]
+ },
+ {
+  "id": "r4-dqn-noinval-pool-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000",
+   "--drop",
+   "young_inval_share"
+  ]
+ },
+ {
+  "id": "r4-dqn-two-rules-pool-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000",
+   "--acts",
+   "0,2"
+  ]
+ },
+ {
+  "id": "r4-dqn-nostate-pool-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000",
+   "--drop",
+   "mean_u,std_u,full_frac,gc_block_frac,victim_u_last,waf_last,young_inval_share,prev_a0,prev_a1,prev_a2,prev_a3"
+  ]
+ },
+ {
+  "id": "r4-dqn-noudist-pool-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000",
+   "--drop",
+   "mean_u,std_u,full_frac"
+  ]
+ },
+ {
+  "id": "r4-dqn-noinval-pool-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000",
+   "--drop",
+   "young_inval_share"
+  ]
+ },
+ {
+  "id": "r4-dqn-two-rules-pool-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000",
+   "--acts",
+   "0,2"
+  ]
+ },
+ {
+  "id": "r3-dqn-gamma0-pool-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000",
+   "--gamma",
+   "0"
+  ]
+ },
+ {
+  "id": "r3-dqn-gamma0.5-pool-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000",
+   "--gamma",
+   "0.5"
+  ]
+ },
+ {
+  "id": "r3-dqn-gamma0.99-pool-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000",
+   "--gamma",
+   "0.99"
+  ]
+ },
+ {
+  "id": "r3-dqn-M16-pool-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000",
+   "--M",
+   "16",
+   "--episode-len",
+   "200"
+  ]
+ },
+ {
+  "id": "r3-dqn-M256-pool-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000",
+   "--M",
+   "256",
+   "--episode-len",
+   "12"
+  ]
+ },
+ {
+  "id": "r3-dqn-gamma0-pool-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000",
+   "--gamma",
+   "0"
+  ]
+ },
+ {
+  "id": "r3-dqn-gamma0.5-pool-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000",
+   "--gamma",
+   "0.5"
+  ]
+ },
+ {
+  "id": "r3-dqn-gamma0.99-pool-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000",
+   "--gamma",
+   "0.99"
+  ]
+ },
+ {
+  "id": "r3-dqn-M16-pool-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000",
+   "--M",
+   "16",
+   "--episode-len",
+   "200"
+  ]
+ },
+ {
+  "id": "r3-dqn-M256-pool-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000",
+   "--M",
+   "256",
+   "--episode-len",
+   "12"
+  ]
+ },
+ {
+  "id": "r3-dqn-gamma0-pool-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000",
+   "--gamma",
+   "0"
+  ]
+ },
+ {
+  "id": "r3-dqn-gamma0.5-pool-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000",
+   "--gamma",
+   "0.5"
+  ]
+ },
+ {
+  "id": "r3-dqn-gamma0.99-pool-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000",
+   "--gamma",
+   "0.99"
+  ]
+ },
+ {
+  "id": "r3-dqn-M16-pool-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000",
+   "--M",
+   "16",
+   "--episode-len",
+   "200"
+  ]
+ },
+ {
+  "id": "r3-dqn-M256-pool-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000",
+   "--M",
+   "256",
+   "--episode-len",
+   "12"
+  ]
+ }
+]

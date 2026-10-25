@@ -39,7 +39,7 @@ class ReinforceAgent:
         self.name = "reinforce"
         self.k, self.gamma, self.entropy = k, gamma, entropy
         self.pi = Scorer(F, G, hidden)
-        self.v = ValueNet(F, G, hidden)
+        self.v = ValueNet(F, G, max(hidden, 64))
         self.opt = torch.optim.Adam(self.pi.parameters(), lr=lr)
         self.opt_v = torch.optim.Adam(self.v.parameters(), lr=lr_v)
         self.reward_shift = reward_shift
@@ -68,7 +68,9 @@ class ReinforceAgent:
         self._ep.append((o["cand"], o["mask"], o["glob"], a, r - self.reward_shift))
         self.steps += 1
 
-    def end_episode(self):
+    def end_episode(self, last_obs=None):
+        """One policy-gradient step on the finished episode.  If the episode was cut (truncated, not
+        terminated), the return after the cut is filled in with the value net: G_T = V(s_T)."""
         if not self._ep:
             return
         cand = torch.from_numpy(np.stack([e[0] for e in self._ep]))
@@ -78,6 +80,11 @@ class ReinforceAgent:
         rew = np.array([e[4] for e in self._ep], dtype=np.float64)
         ret = np.zeros_like(rew)
         run = 0.0
+        if last_obs is not None:
+            with torch.no_grad():
+                run = float(self.v(torch.from_numpy(last_obs["cand"]).unsqueeze(0),
+                                   torch.from_numpy(last_obs["mask"]).unsqueeze(0),
+                                   torch.from_numpy(last_obs["glob"]).unsqueeze(0))[0])
         for t in range(len(rew) - 1, -1, -1):
             run = rew[t] + self.gamma * run
             ret[t] = run

@@ -41,10 +41,12 @@ def build_agent(cfg):
     raise KeyError(cfg["algo"])
 
 
-def evaluate(agent, cfg, workload, seeds, warm=3.0, meas=4.0, op=None):
+def evaluate(agent, cfg, workload, seeds, warm=3.0, meas=4.0, op=None, stochastic=None):
     out = []
+    if stochastic is None:
+        stochastic = bool(cfg.get("eval_stochastic", 0))
     for s in seeds:
-        pol = AgentPolicy(agent, cfg["k"], cfg["n_greedy"], cfg["drop"])
+        pol = AgentPolicy(agent, cfg["k"], cfg["n_greedy"], cfg["drop"], stochastic=stochastic)
         r = run_policy(pol, workload, s, op=op if op is not None else cfg["op"], warmup=warm, measure=meas)
         out.append(r["waf"])
     return out
@@ -77,6 +79,9 @@ def main():
     ap.add_argument("--eps-end", type=float, default=0.02)
     ap.add_argument("--entropy", type=float, default=0.01)
     ap.add_argument("--nstep", type=int, default=1)
+    ap.add_argument("--eval-stochastic", type=int, default=0, help="policy-gradient agents: evaluate by sampling")
+    ap.add_argument("--continuing", type=int, default=0, help="keep the device running across episodes (no refill)")
+    ap.add_argument("--bootstrap", type=int, default=0, help="REINFORCE: fill the return after a cut episode with V(s_T)")
     ap.add_argument("--eval-every", type=int, default=25, help="episodes between quick evaluations")
     ap.add_argument("--ckpt-every", type=int, default=10)
     ap.add_argument("--final-eval-seeds", default="100,101,102,103,104")
@@ -93,7 +98,8 @@ def main():
                lr_v=a.lr_v, hidden=a.hidden, k=a.k, n_greedy=(a.k // 2 if a.n_greedy < 0 else a.n_greedy),
                drop=[d for d in a.drop.split(",") if d], batch=a.batch, train_every=a.train_every,
                target_every=a.target_every, learn_start=a.learn_start, buffer=a.buffer, eps_frac=a.eps_frac,
-               eps_end=a.eps_end, entropy=a.entropy, nstep=a.nstep)
+               eps_end=a.eps_end, entropy=a.entropy, nstep=a.nstep, bootstrap=a.bootstrap,
+               continuing=a.continuing, eval_stochastic=a.eval_stochastic)
     # reward centring: subtract the mean victim valid-ratio of greedy on this workload (a constant —
     # it does not change the optimal policy, it only keeps Q values small)
     probe = VictimEnv(a.workload if not cfg["pool"] else cfg["pool"][0], op=a.op, seed=10_000 + a.seed)
@@ -107,7 +113,7 @@ def main():
 
     agent = build_agent(cfg)
     env = VictimEnv(a.workload, op=a.op, k=a.k, n_greedy=cfg["n_greedy"], episode_len=a.episode_len,
-                    seed=a.seed, workload_pool=cfg["pool"] or None, drop=cfg["drop"])
+                    seed=a.seed, workload_pool=cfg["pool"] or None, drop=cfg["drop"], continuing=bool(a.continuing))
     start_ep = 0
     wall0 = 0.0
     best_val, best_ep = float("inf"), 0
@@ -161,7 +167,7 @@ def main():
             if term or trunc:
                 break
         if hasattr(agent, "end_episode"):
-            agent.end_episode()
+            agent.end_episode(last_obs=obs if (trunc and a.bootstrap) else None)
         eps = agent.epsilon() if hasattr(agent, "epsilon") else float("nan")
         tw.writerow([ep + 1, agent.steps, info["workload"], round(env.episode_waf(), 5), round(ret, 3),
                      round(eps, 4), round(agent.last_loss, 6), round(time.time() - t0, 1)])
@@ -188,6 +194,10 @@ def main():
     wls = cfg["pool"] or [a.workload]
     for wl in wls:
         final[wl] = evaluate(agent, cfg, wl, seeds)
+    other = {}
+    if cfg["algo"] == "reinforce":                 # the other way of acting, for the record
+        for wl in wls:
+            other[wl] = evaluate(agent, cfg, wl, seeds, stochastic=not bool(cfg.get("eval_stochastic", 0)))
     best = {}
     if os.path.exists(best_path):
         agent.load_state_dict(torch.load(best_path, weights_only=False))
@@ -195,6 +205,7 @@ def main():
             best[wl] = evaluate(agent, cfg, wl, seeds)
     done = dict(exp_id=a.exp_id, train_wall_s=round(train_wall, 1), decisions=agent.steps, final_waf=final,
                 best_waf=best, best_val=round(best_val, 5), best_ep=best_ep, val_seeds=val_seeds,
+                final_waf_other_mode=other, eval_mode="stochastic" if cfg.get("eval_stochastic") else "argmax",
                 eval_seeds=seeds)
     json.dump(done, open(os.path.join(run_dir, "done.json"), "w"), indent=2)
     if os.path.exists(ck):

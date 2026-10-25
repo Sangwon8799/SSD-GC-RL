@@ -112,6 +112,86 @@ def e6():
 REST_WORKLOADS = ("hc90-10", "zipf1.0")   # DQN and Dueling DQN only here (wall-clock; see the page's log 05:35)
 
 
+# ---- direct block choice, continuing task (the formulation that did not learn well: evidence for section 7)
+DIRECT = {
+    "reinforce": ["--algo", "reinforce", "--lr", "1e-3", "--episode-len", "500", "--bootstrap", "1",
+                  "--eval-stochastic", "1", "--eval-every", "40"],
+    "ddqn": ["--algo", "ddqn", "--lr", "1e-4", "--eval-every", "10"],
+}
+
+
+def e2a():
+    out = []
+    for seed in (0, 1):
+        for wl in WORKLOADS:
+            for name, extra in DIRECT.items():
+                out.append({"id": f"d2-{name}-g0.999-{wl}-s{seed}",
+                            "args": extra + ["--continuing", "1", "--gamma", "0.999", "--workload", wl,
+                                             "--seed", str(seed), "--decisions", str(MAIN_DECISIONS)]})
+    return out
+
+
+def e3a():
+    out = []
+    for seed in (0, 1, 2):
+        for name, gammas in (("reinforce", ("0", "0.99")), ("ddqn", ("0.99",))):
+            for g in gammas:
+                out.append({"id": f"d3-{name}-g{g}-hc80-20-s{seed}",
+                            "args": DIRECT[name] + ["--continuing", "1", "--gamma", g, "--workload", "hc80-20",
+                                                    "--seed", str(seed), "--decisions", str(MAIN_DECISIONS)]})
+    return out
+
+
+# ---- rule choice (the second formulation): the main experiment from 06:40
+RULE_DECISIONS = 400_000
+POOL = ",".join(WORKLOADS)
+
+
+def rjob(i, args):
+    return {"id": i, "script": "train_rule.py", "args": [str(a) for a in args]}
+
+
+def e2b():
+    out = []
+    for seed in SEEDS:
+        for algo in ("dqn", "reinforce"):
+            for wl in WORKLOADS:
+                out.append(rjob(f"r2-{algo}-{wl}-s{seed}", ["--algo", algo, "--workload", wl, "--seed", seed,
+                                                            "--decisions", RULE_DECISIONS]))
+            out.append(rjob(f"r2-{algo}-pool-s{seed}", ["--algo", algo, "--workload", WORKLOADS[0], "--pool", POOL,
+                                                       "--seed", seed, "--decisions", RULE_DECISIONS]))
+    return out
+
+
+def e3b():
+    out = []
+    for seed in (0, 1, 2):
+        for name, extra in (("gamma0", ["--gamma", "0"]), ("gamma0.5", ["--gamma", "0.5"]), ("gamma0.99", ["--gamma", "0.99"]),
+                            ("M16", ["--M", "16", "--episode-len", "200"]), ("M256", ["--M", "256", "--episode-len", "12"])):
+            out.append(rjob(f"r3-dqn-{name}-pool-s{seed}", ["--algo", "dqn", "--workload", WORKLOADS[0], "--pool", POOL,
+                                                           "--seed", seed, "--decisions", RULE_DECISIONS] + extra))
+    return out
+
+
+def e4b():
+    out = []
+    for seed in (0, 1, 2):
+        for name, extra in (("nostate", ["--drop", ",".join(["mean_u", "std_u", "full_frac", "gc_block_frac", "victim_u_last",
+                                                              "waf_last", "young_inval_share", "prev_a0", "prev_a1",
+                                                              "prev_a2", "prev_a3"])]),
+                            ("noudist", ["--drop", "mean_u,std_u,full_frac"]),
+                            ("noinval", ["--drop", "young_inval_share"]),
+                            ("two-rules", ["--acts", "0,2"])):
+            out.append(rjob(f"r4-dqn-{name}-pool-s{seed}", ["--algo", "dqn", "--workload", WORKLOADS[0], "--pool", POOL,
+                                                           "--seed", seed, "--decisions", RULE_DECISIONS] + extra))
+    return out
+
+
+def e7b():
+    return [rjob(f"r7-dqn-hc80-20-op28-s{seed}", ["--algo", "dqn", "--workload", "hc80-20", "--op", "0.28", "--seed", seed,
+                                                  "--decisions", RULE_DECISIONS]) for seed in SEEDS]
+
+
 def ordered():
     """One queue, most important first: if time runs out, what is finished is still a result."""
     e2_all = e2()
@@ -127,6 +207,12 @@ def main():
     assert len(ids) == len(set(ids)), "duplicate job ids"
     json.dump(q, open("queues/main.json", "w"), indent=1)
     json.dump(e6(), open("queues/timing.json", "w"), indent=1)
+    rule = e2b() + e7b() + e4b() + e3b()
+    json.dump(rule, open("queues/rule.json", "w"), indent=1)
+    print("rule", len(rule))
+    d = e3a() + e2a()
+    json.dump(d, open("queues/direct.json", "w"), indent=1)
+    print("direct", len(d))
     from collections import Counter
     print(len(q), dict(Counter(i.split("-")[0] for i in ids)))
 

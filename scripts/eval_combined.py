@@ -1,6 +1,6 @@
 """E7 — what to erase x when to erase, together (OP 28 %, hc80-20, the timing setting).
 
-victim policy  : greedy | cost-benefit | learned REINFORCE (e7-reinforce-hc80-20-op28-s<i>, best.pt)
+victim policy  : greedy | cost-benefit | learned rule-choosing DQN (r7-dqn-hc80-20-op28-s<i>, best.pt)
 timing policy  : foreground only | rule (W=8, tau=2 ms, W_e=4) | learned tabular Q (e6-tabq-lam3000-s<i>)
 Each of the 9 pairs is run on the test seeds 100-104 (the i-th seed uses the i-th trained model) for
 60k requests; latency mean / p99 / p99.9 and WAF are written to results/combined/combined.csv.
@@ -19,9 +19,9 @@ sys.path.insert(0, HERE)
 import torch  # noqa: E402
 
 from ssdgc.agents.timing_agents import TabularQ  # noqa: E402
-from ssdgc.env import AgentPolicy  # noqa: E402
+from ssdgc.rule_env import RuleAgentPolicy  # noqa: E402
 from ssdgc.timing_env import RulePolicy, run_timing_policy  # noqa: E402
-from train import build_agent  # noqa: E402
+from train_rule import build  # noqa: E402
 
 SEEDS = [100, 101, 102, 103, 104]
 OUT = "results/combined/combined.csv"
@@ -31,11 +31,11 @@ KW = dict(workload="hc80-20", op=0.28)
 def victim(name, i):
     if name in ("greedy", "cb"):
         return name
-    d = f"runs/e7-reinforce-hc80-20-op28-s{i}"
+    d = f"runs/r7-dqn-hc80-20-op28-s{i}"
     cfg = json.load(open(os.path.join(d, "config.json")))
-    ag = build_agent(cfg)
+    ag = build(cfg)
     ag.load_state_dict(torch.load(os.path.join(d, "best.pt"), weights_only=False))
-    return AgentPolicy(ag, cfg["k"], cfg["n_greedy"], cfg["drop"])
+    return RuleAgentPolicy(ag, cfg["M"], acts=cfg["acts"], drop=cfg["drop"])
 
 
 def timing(name, i):
@@ -60,7 +60,7 @@ def main():
     w = csv.writer(fh)
     if new:
         w.writerow(["victim", "timing", "seed", "lat_mean_ms", "lat_p99_ms", "lat_p999_ms", "waf", "bg_gcs"])
-    for vn in ("greedy", "cb", "reinforce"):
+    for vn in ("greedy", "cb", "rule-dqn"):
         for tn in ("fg-only", "rule", "tabq"):
             for i, seed in enumerate(SEEDS):
                 if (vn, tn, str(seed)) in done:

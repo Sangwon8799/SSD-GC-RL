@@ -127,7 +127,11 @@ class ObsBuilder:
 class VictimEnv:
     def __init__(self, workload: str = "hc80-20", n_blocks: int = 256, ppb: int = 64, op: float = 0.14,
                  k: int = 8, n_greedy: int = 4, episode_len: int = 2000, warmup_writes: float = 2.0,
-                 warmup_policy: str = "greedy", seed: int = 0, workload_pool=None, drop=()):
+                 warmup_policy: str = "greedy", seed: int = 0, workload_pool=None, drop=(), continuing: bool = False):
+        """continuing=True: the device is filled and warmed up only once; later reset() calls only start a new
+        episode (an update segment) on the running device, so the agent lives in the state its own policy makes."""
+        self.continuing = continuing
+        self._started = False
         self.workload_spec = workload
         self.workload_pool = list(workload_pool) if workload_pool else None
         self.B, self.P, self.op = n_blocks, ppb, op
@@ -158,6 +162,17 @@ class VictimEnv:
         return obs
 
     def reset(self, seed: int | None = None):
+        if self.continuing and self._started:
+            if self.workload_pool:
+                spec = self.workload_pool[int(self.rng.integers(len(self.workload_pool)))]
+                if spec != self.cur_workload:
+                    self.cur_workload = spec
+                    self.wl = make_workload(spec, self.U, int(self.rng.integers(1 << 31)))
+            self.t = 0
+            self.ep_host = 0 if self.ftl.need_gc() else self._advance()
+            self.ep_copies = 0
+            return self._obs(), {"workload": self.cur_workload}
+        self._started = True
         if seed is not None:
             self.rng = np.random.default_rng(seed)
         wseed = int(self.rng.integers(1 << 31))
@@ -203,8 +218,9 @@ class VictimEnv:
 class AgentPolicy:
     """Wraps a trained agent as an FTL victim policy (for full evaluation runs)."""
 
-    def __init__(self, agent, k: int = 8, n_greedy: int = 4, drop=()):
+    def __init__(self, agent, k: int = 8, n_greedy: int = 4, drop=(), stochastic: bool = False):
         self.agent = agent
+        self.stochastic = stochastic             # sample from a policy-gradient agent instead of taking its argmax
         self.ob = ObsBuilder(k, n_greedy, drop)
         self.name = getattr(agent, "name", "agent")
         self._started = False
@@ -214,7 +230,7 @@ class AgentPolicy:
             self.ob.reset(ftl)
             self._started = True
         obs, blocks = self.ob(ftl)
-        a = int(self.agent.act(obs, greedy=True))
+        a = int(self.agent.act(obs, greedy=not self.stochastic))
         return int(blocks[a])
 
 

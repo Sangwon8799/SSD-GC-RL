@@ -26,6 +26,9 @@ NEG = -1e9
 class Scorer(nn.Module):
     def __init__(self, n_cand_feat: int, n_glob: int, hidden: int = 64):
         super().__init__()
+        if hidden <= 0:                      # linear scorer: score = w . [cand_i, glob] + b (13 weights)
+            self.net = nn.Linear(n_cand_feat + n_glob, 1)
+            return
         self.net = nn.Sequential(
             nn.Linear(n_cand_feat + n_glob, hidden), nn.ReLU(),
             nn.Linear(hidden, hidden), nn.ReLU(),
