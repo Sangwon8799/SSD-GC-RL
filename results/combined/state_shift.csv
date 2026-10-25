@@ -1,0 +1,4 @@
+victim,idle_decisions,next_u_median,next_u_p10,next_u_p90,tabq_gc_share
+greedy,1111,0.625,0.6094,0.6406,0.8362
+cb,1743,0.4219,0.3906,0.4531,0.0
+rule-dqn,2208,0.4062,0.3594,0.4531,0.0
