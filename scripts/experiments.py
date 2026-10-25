@@ -21,8 +21,11 @@ ALGOS = {  # name -> extra args
 MAIN_DECISIONS = 150_000
 
 
+EVAL = ["--eval-every", "10"]   # validation every 10 episodes = 20k decisions (also the checkpoint choice)
+
+
 def job(i, args):
-    return {"id": i, "args": [str(a) for a in args]}
+    return {"id": i, "args": [str(a) for a in args] + EVAL}
 
 
 def e2(nstep=1):
@@ -86,6 +89,26 @@ def e7_victim(main="reinforce"):
             for seed in SEEDS]
 
 
+LAMS = ["300", "1000", "3000", "10000"]
+
+
+def e6():
+    """GC timing (gamma 0.9995 per ms, OP 28 %, hc80-20): tabular Q 2M steps x 4 lambdas x 5 seeds,
+    then DQN 1M steps (one update every 8 steps) x 2 lambdas x 5 seeds."""
+    out = []
+    for lam in LAMS:
+        for seed in SEEDS:
+            out.append({"id": f"e6-tabq-lam{lam}-s{seed}", "script": "train_timing.py",
+                        "args": ["--algo", "tabq", "--lam", lam, "--gamma", "0.9995", "--seed", str(seed),
+                                 "--steps", "2000000"]})
+    for lam in ("300", "3000"):
+        for seed in SEEDS:
+            out.append({"id": f"e6-dqn-lam{lam}-s{seed}", "script": "train_timing.py",
+                        "args": ["--algo", "dqn", "--lam", lam, "--gamma", "0.9995", "--seed", str(seed),
+                                 "--steps", "1000000", "--train-every", "8"]})
+    return out
+
+
 def ordered():
     """One queue, most important first: if time runs out, what is finished is still a result."""
     e2_all = e2()
@@ -100,6 +123,7 @@ def main():
     ids = [j["id"] for j in q]
     assert len(ids) == len(set(ids)), "duplicate job ids"
     json.dump(q, open("queues/main.json", "w"), indent=1)
+    json.dump(e6(), open("queues/timing.json", "w"), indent=1)
     from collections import Counter
     print(len(q), dict(Counter(i.split("-")[0] for i in ids)))
 

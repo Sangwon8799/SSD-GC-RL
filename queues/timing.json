@@ -1,0 +1,502 @@
+[
+ {
+  "id": "e6-tabq-lam300-s0",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "300",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "0",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam300-s1",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "300",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "1",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam300-s2",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "300",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "2",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam300-s3",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "300",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "3",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam300-s4",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "300",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "4",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam1000-s0",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "1000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "0",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam1000-s1",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "1000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "1",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam1000-s2",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "1000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "2",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam1000-s3",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "1000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "3",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam1000-s4",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "1000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "4",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam3000-s0",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "3000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "0",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam3000-s1",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "3000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "1",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam3000-s2",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "3000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "2",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam3000-s3",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "3000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "3",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam3000-s4",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "3000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "4",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam10000-s0",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "10000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "0",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam10000-s1",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "10000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "1",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam10000-s2",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "10000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "2",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam10000-s3",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "10000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "3",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-tabq-lam10000-s4",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "tabq",
+   "--lam",
+   "10000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "4",
+   "--steps",
+   "2000000"
+  ]
+ },
+ {
+  "id": "e6-dqn-lam300-s0",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--lam",
+   "300",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "0",
+   "--steps",
+   "1000000",
+   "--train-every",
+   "8"
+  ]
+ },
+ {
+  "id": "e6-dqn-lam300-s1",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--lam",
+   "300",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "1",
+   "--steps",
+   "1000000",
+   "--train-every",
+   "8"
+  ]
+ },
+ {
+  "id": "e6-dqn-lam300-s2",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--lam",
+   "300",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "2",
+   "--steps",
+   "1000000",
+   "--train-every",
+   "8"
+  ]
+ },
+ {
+  "id": "e6-dqn-lam300-s3",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--lam",
+   "300",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "3",
+   "--steps",
+   "1000000",
+   "--train-every",
+   "8"
+  ]
+ },
+ {
+  "id": "e6-dqn-lam300-s4",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--lam",
+   "300",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "4",
+   "--steps",
+   "1000000",
+   "--train-every",
+   "8"
+  ]
+ },
+ {
+  "id": "e6-dqn-lam3000-s0",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--lam",
+   "3000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "0",
+   "--steps",
+   "1000000",
+   "--train-every",
+   "8"
+  ]
+ },
+ {
+  "id": "e6-dqn-lam3000-s1",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--lam",
+   "3000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "1",
+   "--steps",
+   "1000000",
+   "--train-every",
+   "8"
+  ]
+ },
+ {
+  "id": "e6-dqn-lam3000-s2",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--lam",
+   "3000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "2",
+   "--steps",
+   "1000000",
+   "--train-every",
+   "8"
+  ]
+ },
+ {
+  "id": "e6-dqn-lam3000-s3",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--lam",
+   "3000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "3",
+   "--steps",
+   "1000000",
+   "--train-every",
+   "8"
+  ]
+ },
+ {
+  "id": "e6-dqn-lam3000-s4",
+  "script": "train_timing.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--lam",
+   "3000",
+   "--gamma",
+   "0.9995",
+   "--seed",
+   "4",
+   "--steps",
+   "1000000",
+   "--train-every",
+   "8"
+  ]
+ }
+]
