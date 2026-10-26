@@ -77,7 +77,10 @@ def main():
     print(f"[queue] {len(seen)} jobs, {len(pending)} pending", flush=True)
     running: list[tuple[dict, subprocess.Popen]] = []
     adopted: set[str] = set()
+    last_build = 0.0           # a multi-stage site build has short gaps between its astro processes
     while True:
+        if not a.ignore_build and site_build_running():
+            last_build = time.time()
         added = load_jobs(a.queue, a.runs, seen)
         if added:
             pending += added
@@ -103,7 +106,7 @@ def main():
                 pass
         while pending and len(running) < width:
             load = os.getloadavg()[0]
-            if load >= a.max_load or (not a.ignore_build and site_build_running()):
+            if load >= a.max_load or (not a.ignore_build and (site_build_running() or time.time() - last_build < 120)):
                 break
             if len(running) + len(adopted) >= width:
                 break
