@@ -1,0 +1,31 @@
+{
+  "algo": "reinforce",
+  "workload": "zipf1.0",
+  "pool": [],
+  "op": 0.14,
+  "seed": 3,
+  "decisions": 400000,
+  "M": 64,
+  "episode_len": 50,
+  "gamma": 0.9,
+  "lr": 0.001,
+  "hidden": 64,
+  "entropy": 0.01,
+  "eps_frac": 0.3,
+  "acts": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "drop": [],
+  "eval_stochastic": 1,
+  "n_steps": 6250,
+  "reward_shift": -0.707470703125,
+  "betas": [
+    0.0,
+    0.5,
+    1.0,
+    2.0
+  ]
+}

@@ -1,0 +1,7 @@
+variant,n,mean,ci95_half
+main setting,5,3.4004,0.0503
+noinval,3,3.3895,0.0319
+nostate,3,3.5665,0.1292
+noudist,3,3.3746,0.0148
+prevonly,3,3.3854,0.029
+two-rules,3,3.3683,0.0128

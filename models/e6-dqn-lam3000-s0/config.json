@@ -1,0 +1,19 @@
+{
+  "exp_id": "e6-dqn-lam3000-s0",
+  "runs": "runs",
+  "algo": "dqn",
+  "lam": 3000.0,
+  "reward_scale": 1e-05,
+  "seed": 0,
+  "steps": 1000000,
+  "episode_len": 20000,
+  "gamma": 0.9995,
+  "lr": 0.0005,
+  "alpha": 0.1,
+  "train_every": 8,
+  "eps_frac": 0.5,
+  "workload": "hc80-20",
+  "op": 0.28,
+  "eval_requests": 60000,
+  "final_eval_seeds": "100,101,102,103,104"
+}

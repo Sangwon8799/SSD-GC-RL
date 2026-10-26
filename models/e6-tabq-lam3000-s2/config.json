@@ -1,0 +1,18 @@
+{
+  "exp_id": "e6-tabq-lam3000-s2",
+  "runs": "runs",
+  "algo": "tabq",
+  "lam": 3000.0,
+  "seed": 2,
+  "steps": 2000000,
+  "episode_len": 20000,
+  "gamma": 0.9995,
+  "lr": 0.0005,
+  "alpha": 0.1,
+  "train_every": 4,
+  "eps_frac": 0.5,
+  "workload": "hc80-20",
+  "op": 0.28,
+  "eval_requests": 60000,
+  "final_eval_seeds": "100,101,102,103,104"
+}

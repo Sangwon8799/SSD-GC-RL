@@ -1,0 +1,41 @@
+{
+  "algo": "dqn",
+  "workload": "uniform",
+  "pool": [
+    "uniform",
+    "hc80-20",
+    "hc90-10",
+    "zipf1.0",
+    "shift90-10"
+  ],
+  "op": 0.14,
+  "seed": 0,
+  "decisions": 400000,
+  "M": 64,
+  "episode_len": 50,
+  "gamma": 0.9,
+  "lr": 0.001,
+  "hidden": 64,
+  "entropy": 0.01,
+  "eps_frac": 0.3,
+  "acts": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "drop": [
+    "mean_u",
+    "std_u",
+    "full_frac"
+  ],
+  "eval_stochastic": 0,
+  "n_steps": 6250,
+  "reward_shift": -0.769873046875,
+  "betas": [
+    0.0,
+    0.5,
+    1.0,
+    2.0
+  ]
+}
