@@ -1550,5 +1550,191 @@
    "--episode-len",
    "12"
   ]
+ },
+ {
+  "id": "r3-dqn-M4-pool-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000",
+   "--M",
+   "4",
+   "--episode-len",
+   "800"
+  ]
+ },
+ {
+  "id": "r3-dqn-M8-pool-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000",
+   "--M",
+   "8",
+   "--episode-len",
+   "400"
+  ]
+ },
+ {
+  "id": "r3-dqn-M16h-pool-s0",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "0",
+   "--decisions",
+   "400000",
+   "--M",
+   "16",
+   "--episode-len",
+   "200",
+   "--gamma",
+   "0.974"
+  ]
+ },
+ {
+  "id": "r3-dqn-M4-pool-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000",
+   "--M",
+   "4",
+   "--episode-len",
+   "800"
+  ]
+ },
+ {
+  "id": "r3-dqn-M8-pool-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000",
+   "--M",
+   "8",
+   "--episode-len",
+   "400"
+  ]
+ },
+ {
+  "id": "r3-dqn-M16h-pool-s1",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "1",
+   "--decisions",
+   "400000",
+   "--M",
+   "16",
+   "--episode-len",
+   "200",
+   "--gamma",
+   "0.974"
+  ]
+ },
+ {
+  "id": "r3-dqn-M4-pool-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000",
+   "--M",
+   "4",
+   "--episode-len",
+   "800"
+  ]
+ },
+ {
+  "id": "r3-dqn-M8-pool-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000",
+   "--M",
+   "8",
+   "--episode-len",
+   "400"
+  ]
+ },
+ {
+  "id": "r3-dqn-M16h-pool-s2",
+  "script": "train_rule.py",
+  "args": [
+   "--algo",
+   "dqn",
+   "--workload",
+   "uniform",
+   "--pool",
+   "uniform,hc80-20,hc90-10,zipf1.0,shift90-10",
+   "--seed",
+   "2",
+   "--decisions",
+   "400000",
+   "--M",
+   "16",
+   "--episode-len",
+   "200",
+   "--gamma",
+   "0.974"
+  ]
  }
 ]

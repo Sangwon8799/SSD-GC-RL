@@ -173,6 +173,13 @@ def e3b():
                             ("M16", ["--M", "16", "--episode-len", "200"]), ("M256", ["--M", "256", "--episode-len", "12"])):
             out.append(rjob(f"r3-dqn-{name}-pool-s{seed}", ["--algo", "dqn", "--workload", WORKLOADS[0], "--pool", POOL,
                                                            "--seed", seed, "--decisions", RULE_DECISIONS] + extra))
+    # added 09:57 after M16 beat M64: shorter macro steps, and M16 with the horizon in GCs matched to M64 / gamma 0.9
+    # (gamma per step 0.9 ** (16 / 64) = 0.974), to separate "smaller action" from "shorter horizon"
+    for seed in (0, 1, 2):
+        for name, extra in (("M4", ["--M", "4", "--episode-len", "800"]), ("M8", ["--M", "8", "--episode-len", "400"]),
+                            ("M16h", ["--M", "16", "--episode-len", "200", "--gamma", "0.974"])):
+            out.append(rjob(f"r3-dqn-{name}-pool-s{seed}", ["--algo", "dqn", "--workload", WORKLOADS[0], "--pool", POOL,
+                                                           "--seed", seed, "--decisions", RULE_DECISIONS] + extra))
     return out
 
 
